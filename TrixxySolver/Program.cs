@@ -9,6 +9,7 @@ namespace PuzzleResolver
         static void Main(string[] args)
         {
             var sw = new Stopwatch();
+            // define cards
             var card1 = new Card()
             {
                 Name = "Card 1",
@@ -83,10 +84,17 @@ namespace PuzzleResolver
             sw.Start();
             var cards = new List<Card> { card1, card2, card3, card4 };
             var combinations = new List<CardsInStack>();
+            // get all permutations and get only the once that start with card 1 or 2
+            // this because we can check half of the permutation to find the combinations
+            // thats solves the front side. If the front side is correct we'll check the
+            // back side
             var permutations = cards.GetPermutations().Where(p => p.First().Name == "Card 1" || p.First().Name == "Card 2")
                 .ToList();
             permutations.ForEach(listOfCards =>
             {
+                // we don't rotate the first card. Since the rotation 
+                // 0, 1, 2, 3 is basically equal to 1, 2, 3, 0
+                // The rest of the cards we do rotate.
                 listOfCards.ElementAt(0).GetCombinations(false).ToList().ForEach(c1 =>
                 {
                     listOfCards.ElementAt(1).GetCombinations().ToList().ForEach(c2 =>
@@ -112,10 +120,12 @@ namespace PuzzleResolver
             sw.Restart();
             Console.WriteLine("Checking combinations");
             var twoSidesCorrectList = new List<CardsInStack>();
+            // check the front side of all combinations
             combinations.ToList().ForEach(c =>
             {
                 if (c.CheckFront())
                 {
+                    // if front is correct check the back side.
                     if (c.CheckBack())
                     {
                         twoSidesCorrectList.Add(c);
@@ -125,6 +135,7 @@ namespace PuzzleResolver
             Console.WriteLine($"Checked combinations in {sw.Elapsed.Seconds} seconds");
             twoSidesCorrectList.ForEach(c =>
             {
+                // output the right combination.
             Console.WriteLine($"Two sides correct! {Environment.NewLine}" +
                 $"Card 1: {c.Card1.Card.Name} rotation: {c.Card1.Rotation} front: {c.Card1.IsFront}{Environment.NewLine}" +
                 $"Card 2: {c.Card2.Card.Name} rotation: {c.Card2.Rotation} front: {c.Card2.IsFront}{Environment.NewLine}" +

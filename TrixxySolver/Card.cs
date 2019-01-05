@@ -125,9 +125,9 @@ namespace PuzzleResolver
         private static bool CheckStackOneSide(List<Color[,]> cards, bool noGaps)
         {
             var total = (Color[,])cards[0].Clone();
-            for (int x = 0; x < 4; x++)
+            for (int x = 0; x < cards[0].GetLength(0); x++)
             {
-                for (int y = 0; y < 4; y++)
+                for (int y = 0; y < cards[0].GetLength(1); y++)
                 {
                     var color = total[x, y];
                     var getNextIndex = 1;
@@ -148,7 +148,7 @@ namespace PuzzleResolver
 
         private static bool Check(Color[,] card, bool checkRow, bool checkComplete = false)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < card.GetLength(checkRow ? 0: 1); i++)
             {
                 var row = new List<Color> {
                 card[checkRow ? i : 0,checkRow ? 0 : i],
