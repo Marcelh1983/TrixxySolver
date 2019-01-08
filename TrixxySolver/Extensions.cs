@@ -1,7 +1,9 @@
-﻿using System;
+﻿using PuzzleResolver.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TrixxySolver.Model;
 
 namespace PuzzleResolver
 {
