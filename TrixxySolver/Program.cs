@@ -10,17 +10,17 @@ namespace PuzzleResolver
         {
             SetConsoleSize();
             // Get cards that are hard coded in the GetCards function
-            var cards = GetCards();
             // we can check half of the permutation to find the combinations
             // because we are looking for a solution where front and back are correct.
             // if we would check all permutions we would find the correct solution twice (one the reverse of the other)
-            var possibleStacks = cards
-                .GetPermutations().Where(p => p.First().Name == "Card 1" || p.First().Name == "Card 2")
-                .GetPossibleStacks();
-            // check the front and back side of all combinations
-            possibleStacks.Where(s => s.CheckFront() && s.CheckBack())
+            GetCards()
+                .GetPermutations()
+                .Where(p => p.First().Name == "Card 1" || p.First().Name == "Card 2")
+                .GetPossibleStacks()
+                .Where(s => s.CheckFront() && s.CheckBack())
                 .ToList()
                 .ForEach(s => s.ToConsole());
+
             Console.WriteLine();
             Console.WriteLine("Done!");
             Console.ReadKey();
