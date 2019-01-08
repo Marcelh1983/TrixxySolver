@@ -11,10 +11,9 @@ namespace PuzzleResolver
             SetConsoleSize();
             // Get cards that are hard coded in the GetCards function
             var cards = GetCards();
-            // get all permutations and get only the once that start with card 1 or 2
-            // this because we can check half of the permutation to find the combinations
-            // thats solves the front side. If the front side is correct we'll check the
-            // back side
+            // we can check half of the permutation to find the combinations
+            // because we are looking for a solution where front and back are correct.
+            // if we would check all permutions we would find the correct solution twice (one the reverse of the other)
             var possibleStacks = cards
                 .GetPermutations().Where(p => p.First().Name == "Card 1" || p.First().Name == "Card 2")
                 .GetPossibleStacks();
